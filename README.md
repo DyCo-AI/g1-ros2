@@ -101,6 +101,11 @@ command.
 
 ## Quick Start
 
+The tested host configuration is **Ubuntu 22.04 LTS on x86_64 with ROS 2
+Humble**. For a new PC, complete the
+[step-by-step host installation guide](docs/install/README.md) first. The
+commands below are the condensed path for an already prepared Ubuntu host.
+
 ### 1. Clone the Repository and Upstream Dependencies
 
 ```bash
@@ -129,11 +134,17 @@ sudo apt install \
   python3-colcon-common-extensions \
   python3-rosdep \
   python3-pip \
+  python3-venv \
+  python3-gi \
+  python3-gst-1.0 \
+  gir1.2-gstreamer-1.0 \
   gstreamer1.0-tools \
   gstreamer1.0-libav \
   gstreamer1.0-plugins-good \
   gstreamer1.0-plugins-bad
 
+python3 -m venv --system-site-packages .venv
+source .venv/bin/activate
 python3 -m pip install -r src/g1_rerun_bridge/requirements.txt
 ```
 
@@ -141,6 +152,7 @@ python3 -m pip install -r src/g1_rerun_bridge/requirements.txt
 
 ```bash
 source /opt/ros/humble/setup.bash
+source .venv/bin/activate
 
 cd src/unitree_ros2/cyclonedds_ws
 colcon build --symlink-install
@@ -239,6 +251,7 @@ dependencies.repos          Pinned upstream source dependencies
 | Start here | Purpose |
 | --- | --- |
 | [Lab wiki](docs/README.md) | Documentation index and conventions |
+| [Ubuntu 22.04 host installation](docs/install/README.md) | Clean-PC dependencies, build, environment, and pass criteria |
 | [Whole-robot bring-up](docs/bringup/README.md) | Canonical startup and diagnostics procedure |
 | [Network and development mode](docs/network/README.md) | Ethernet, static IP, ping, DDS, and Jetson SSH |
 | [Hardware configuration](docs/hardware/README.md) | Robot variant, sensors, hip clamp, and active DOFs |

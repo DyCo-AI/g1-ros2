@@ -9,6 +9,7 @@ Put subsystem-specific runbooks, calibration notes, and troubleshooting here.
 | Folder | Purpose |
 | --- | --- |
 | `docs/pilots/` | Versioned V1 diagnostics and V2 teleoperation acceptance-test plans. |
+| `docs/install/` | Tested Ubuntu 22.04 host installation, dependencies, build, and verification. |
 | `docs/bringup/` | Canonical whole-robot startup and read-only diagnostics procedure. |
 | `docs/hardware/` | Physical robot configuration, hip clamp state, active DOFs, and controller compatibility. |
 | `docs/network/` | Development mode, LAN setup, static IP, ping checks, DDS/network troubleshooting. |
@@ -32,6 +33,7 @@ For each subsystem, prefer this structure:
 
 ## Current Subsystem Docs
 
+- [Ubuntu 22.04 host installation](install/README.md)
 - [V1 diagnostics and V2 teleoperation pilot roadmap](pilots/README.md)
 - [Whole-robot diagnostics bring-up](bringup/README.md)
 - [Hardware configuration and hip clamp](hardware/README.md)

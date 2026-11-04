@@ -1,11 +1,12 @@
-build/
-install/
-log/
+/build/
+/install/
+/log/
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.venv/
 third_party/unitree_sdk2/
 dex3_*_session_*.csv
 src/unitree_ros2/
