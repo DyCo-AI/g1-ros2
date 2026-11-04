@@ -91,18 +91,23 @@ runbook](../network/README.md) covers alternate interfaces and troubleshooting.
 Open a terminal at the workspace root:
 
 ```bash
-cd /home/sriramk/unitree_g1_ws
+cd ~/g1-ros2
+
+# Activate exactly one:
+source .venv/bin/activate
+# conda activate g1-ros2
+
 source /opt/ros/humble/setup.bash
 source src/unitree_ros2/cyclonedds_ws/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export CYCLONEDDS_URI=file:///home/sriramk/unitree_g1_ws/config/cyclonedds_g1.xml
+export CYCLONEDDS_URI="file://${PWD}/config/cyclonedds_g1.xml"
 source install/setup.bash
 ```
 
 If the bridge has not been built, build it once and source the workspace again:
 
 ```bash
-colcon build --symlink-install --packages-select g1_rerun_bridge
+python3 -m colcon build --symlink-install --packages-select g1_rerun_bridge
 source install/setup.bash
 ```
 

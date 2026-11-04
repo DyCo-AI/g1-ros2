@@ -185,8 +185,8 @@ review rather than including it in the first teleoperation milestone.
 - [x] Add the initial `g1_teleop` package with transport-independent Dex3
   motion tests and a native SDK2 hardware executable that is read-only unless
   `--enable-motion` is supplied.
-- [x] Preserve the guarded `g1_holloween/sdk_dex3_basic` implementation as the
-  provenance for the first lab hand test and document its migration.
+- [x] Preserve the guarded internal Dex3 prototype as provenance for the first
+  lab hand test and document its migration into `src/g1_teleop`.
 - [ ] Run the one-hand-at-a-time right and left Dex3 hardware acceptance
   sequence and review the generated command-versus-measured logs.
 - [ ] Select and document the supported Unitree SDK2 command interface for this

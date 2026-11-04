@@ -24,15 +24,11 @@ loss, and power loss cannot guarantee delivery.
 
 ## Provenance
 
-The guarded control sequence was adapted from the lab's validated prototype:
-
-```text
-/home/sriramk/g1_holloween/sdk_dex3_basic
-```
-
-It uses the official native Unitree SDK2 `HandCmd_` and `HandState_` types. The
-motion signs and limits follow Unitree's G1 Dex3 example and are covered by
-offline tests in `src/g1_teleop/test/`.
+The guarded control sequence was adapted from the lab's original Dex3
+prototype and migrated into `src/g1_teleop`. It uses the official native
+Unitree SDK2 `HandCmd_` and `HandState_` types. The motion signs and limits
+follow Unitree's G1 Dex3 example and are covered by offline tests in
+`src/g1_teleop/test/`.
 
 Although it is launched with `ros2 run` for workspace consistency, the hardware
 process itself uses native SDK2 rather than `rclcpp`. Its launcher gives SDK2's
@@ -41,36 +37,38 @@ environment.
 
 ## SDK Dependency
 
-`g1_teleop` does not vendor another SDK copy. Set `UNITREE_SDK2_DIR` to an
-official Unitree SDK2 source tree before building the hardware executable.
-
-For the currently archived, checksum-verified lab copy:
+`g1_teleop` uses the official Unitree SDK2 revision pinned in
+`dependencies.repos`:
 
 ```bash
-mkdir -p ~/unitree_g1_ws/third_party/unitree_sdk2
-tar -xzf ~/g1_holloween/data/unitree_sdk2_g1_reference.tar.gz \
-  --strip-components=1 \
-  -C ~/unitree_g1_ws/third_party/unitree_sdk2
-export UNITREE_SDK2_DIR=~/unitree_g1_ws/third_party/unitree_sdk2
+cd ~/g1-ros2
+vcs import < dependencies.repos
+git -C third_party/unitree_sdk2 rev-parse HEAD
 ```
 
-The extracted SDK directory is a local dependency and should not be committed
-to this repository. Record the SDK revision and license before the first lab
-release.
+Expected revision:
+
+```text
+8e1b927586712edd6a4c29d50dd52dff1e163439
+```
+
+The SDK directory is an ignored, pinned source dependency and is not committed
+to this repository. Its upstream license remains authoritative.
 
 Build the package:
 
 ```bash
-cd ~/unitree_g1_ws
+cd ~/g1-ros2
 source /opt/ros/humble/setup.bash
-export UNITREE_SDK2_DIR=~/unitree_g1_ws/third_party/unitree_sdk2
 colcon build --packages-select g1_teleop \
-  --cmake-args -DUNITREE_SDK2_DIR="$UNITREE_SDK2_DIR"
+  --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
 source install/setup.bash
 ```
 
-If `UNITREE_SDK2_DIR` is absent, the package deliberately builds only its
-transport-independent motion tests. It does not install `dex3_smoke`.
+The build automatically uses `third_party/unitree_sdk2`. Advanced users can
+override it by setting `UNITREE_SDK2_DIR` before configuring the package. If
+the selected SDK tree is missing, the package deliberately builds only its
+transport-independent motion tests and does not install `dex3_smoke`.
 
 ## Step 1: Read-Only Check
 
@@ -144,7 +142,7 @@ this sequence passes and its logs have been reviewed.
 
 ## Remaining Work
 
-- [ ] Extract and record the exact Unitree SDK2 revision used by the lab.
+- [x] Pin and record the exact official Unitree SDK2 revision used by the lab.
 - [ ] Load a validated hardware profile at runtime instead of compiling the
   initial reviewed constants into the executable.
 - [ ] Run and document the right-hand hardware acceptance sequence.

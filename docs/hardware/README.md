@@ -128,7 +128,7 @@ Before enabling any motion controller:
   removed.
 - [ ] Visually verify and record the actual clamp state.
 - [ ] Verify the exact constrained joint names and motor IDs.
-- [ ] Confirm constrained joints p the robot supported on the gantry for the initial controller test.are omitted or masked from outgoing commands.
+- [ ] Confirm constrained joints are omitted or masked from outgoing commands.
 - [ ] Confirm the controller model and state estimator use the same active DOFs.
 - [ ] Check clamp installation, fasteners, clearances, and cable routing using
   the approved procedure.
@@ -152,10 +152,15 @@ Complete this table before hardware controller testing:
 
 | Controller | Clamp state | Constrained joints/IDs | Robot variant | Validated by/date |
 | --- | --- | --- | --- | --- |
-| Minimal motion smoke test | TODO | TODO | G1 29-DOF + Dex3 | TODO |
+| Minimal Dex3 smoke test | Either; record actual state | No body joints commanded | G1 29-DOF + Dex3 | Software scope reviewed; hardware acceptance pending |
 | G1Pilot teleoperation | TODO | TODO | G1 29-DOF + Dex3 | TODO |
 | Blind locomotion controller | TODO | TODO | G1 29-DOF + Dex3 | TODO |
 | Upper-body retargeting | TODO | TODO | G1 29-DOF + Dex3 | TODO |
+
+The minimal Dex3 smoke test commands hand motors only, so the hip clamp does
+not change its command set. Do not run any controller that commands waist,
+hip, leg, or whole-body joints until its required clamp state and constrained
+joint IDs are filled in and reviewed in this table.
 
 ## TODO
 

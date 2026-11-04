@@ -14,6 +14,12 @@ target_include_directories(dex3_motion INTERFACE
 
 set(UNITREE_SDK2_DIR "$ENV{UNITREE_SDK2_DIR}" CACHE PATH
   "Path to the official unitree_sdk2 source tree")
+if(NOT UNITREE_SDK2_DIR)
+  get_filename_component(UNITREE_SDK2_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/unitree_sdk2" ABSOLUTE)
+  set(UNITREE_SDK2_DIR "${UNITREE_SDK2_DIR}" CACHE PATH
+    "Path to the official unitree_sdk2 source tree" FORCE)
+endif()
 option(G1_TELEOP_BUILD_HARDWARE "Build native SDK2 hardware executables" ON)
 
 if(G1_TELEOP_BUILD_HARDWARE AND EXISTS "${UNITREE_SDK2_DIR}/CMakeLists.txt")

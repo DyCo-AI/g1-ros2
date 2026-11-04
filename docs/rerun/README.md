@@ -6,7 +6,8 @@ runbook](../bringup/README.md).
 
 ## Run the Default Layout
 
-From a sourced workspace at `/home/sriramk/unitree_g1_ws`:
+From a terminal sourced according to the
+[bring-up runbook](../bringup/README.md):
 
 ```bash
 ros2 run g1_rerun_bridge bridge

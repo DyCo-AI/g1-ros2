@@ -77,6 +77,9 @@ sudo apt install \
   python3-gi \
   python3-gst-1.0 \
   gir1.2-gstreamer-1.0 \
+  build-essential \
+  cmake \
+  libeigen3-dev \
   libyaml-cpp-dev \
   ros-humble-rmw-cyclonedds-cpp \
   ros-humble-rosidl-generator-dds-idl \
@@ -117,6 +120,7 @@ This creates:
 src/unitree_ros2
 third_party/unitree_ros
 third_party/unitree_model
+third_party/unitree_sdk2
 ```
 
 Verify the pinned checkouts:
@@ -264,10 +268,9 @@ g1_rerun_bridge bridge
 g1_rerun_dex dex_rerun
 ```
 
-The motion-capable `g1_teleop` package depends on native Unitree SDK2 and is
-installed separately after the read-only stack works. Follow the
-[teleoperation runbook](../teleop/README.md); do not treat the SDK extraction
-as part of the initial diagnostics installation.
+The motion-capable `g1_teleop` package uses the pinned native Unitree SDK2 tree
+imported above. Build it only after the read-only stack works, following the
+[teleoperation runbook](../teleop/README.md).
 
 ## 8. Configure the Robot Ethernet Profile
 

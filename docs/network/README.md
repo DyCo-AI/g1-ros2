@@ -181,8 +181,9 @@ If the PC uses another interface, update that name before starting ROS. Then
 source the DDS environment:
 
 ```bash
+cd ~/g1-ros2
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export CYCLONEDDS_URI=file:///home/sriramk/unitree_g1_ws/config/cyclonedds_g1.xml
+export CYCLONEDDS_URI="file://${PWD}/config/cyclonedds_g1.xml"
 ```
 
 ## 8. Verify ROS Communication
