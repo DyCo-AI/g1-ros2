@@ -34,6 +34,14 @@ require explicit operator activation.
 
 The current profile targets the lab's development-capable G1 configuration:
 
+<p align="center">
+  <img src="docs/assets/unitree_g1_clemson.jpg"
+       alt="DyCo AI Lab Unitree G1 supported on its development gantry"
+       width="520">
+</p>
+
+<p align="center"><em>The DyCo AI Lab G1 in its supported development setup.</em></p>
+
 | Component | Configuration |
 | --- | --- |
 | Robot | Unitree G1, 29 body DOF |
