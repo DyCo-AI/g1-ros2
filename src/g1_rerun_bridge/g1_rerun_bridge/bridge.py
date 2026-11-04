@@ -101,6 +101,24 @@ G1_DEBUG_LINK_MARKERS = {
 DEFAULT_G1_29DOF_HAND_URDF = (
     "third_party/unitree_ros/robots/g1_description/g1_29dof_with_hand_rev_1_0.urdf"
 )
+DEFAULT_ENABLE_FRONT_VIDEO_TOPIC = False
+DEFAULT_ENABLE_STOCK_H264_CAMERA = True
+
+
+def stock_h264_pipeline(address: str, port: int, interface: str) -> str:
+    """Build the passive host-side Unitree multicast receiver pipeline."""
+    return (
+        f"udpsrc address={address} port={port} multicast-iface={interface} "
+        "! application/x-rtp,media=video,encoding-name=H264 "
+        "! rtph264depay "
+        "! queue max-size-buffers=1 leaky=downstream "
+        "! h264parse "
+        "! queue max-size-buffers=1 leaky=downstream "
+        "! avdec_h264 "
+        "! videoconvert "
+        "! video/x-raw,format=RGB "
+        "! appsink name=sink emit-signals=false max-buffers=1 drop=true sync=false"
+    )
 
 
 class G1RerunBridge(Node):
@@ -140,9 +158,11 @@ class G1RerunBridge(Node):
         self.declare_parameter("taxel_visual_pad_fill", 0.35)
         self.declare_parameter("enable_hand_imu", False)
         self.declare_parameter("enable_service_state", False)
-        self.declare_parameter("enable_camera", False)
+        self.declare_parameter("enable_camera", DEFAULT_ENABLE_FRONT_VIDEO_TOPIC)
         self.declare_parameter("enable_camera_packet_preview", True)
-        self.declare_parameter("enable_gstreamer_camera", True)
+        self.declare_parameter(
+            "enable_gstreamer_camera", DEFAULT_ENABLE_STOCK_H264_CAMERA
+        )
         self.declare_parameter("gstreamer_camera_address", "230.1.1.1")
         self.declare_parameter("gstreamer_camera_port", 1720)
         self.declare_parameter("gstreamer_camera_interface", "enp0s31f6")
@@ -582,6 +602,10 @@ class G1RerunBridge(Node):
         rr.log("g1/camera/front/image", rr.Image(preview))
 
     def _start_gstreamer_camera(self) -> None:
+        self.get_logger().info(
+            "Starting passive Unitree H264 receiver; no onboard camera process "
+            "or device ownership is modified."
+        )
         if Gst is None:
             message = (
                 "GStreamer Python bindings are not available. Install: "
@@ -607,18 +631,7 @@ class G1RerunBridge(Node):
         frame_period = 1.0 / fps_limit if fps_limit > 0.0 else 0.0
         last_logged = 0.0
 
-        pipeline_text = (
-            f"udpsrc address={address} port={port} multicast-iface={interface} "
-            "! application/x-rtp,media=video,encoding-name=H264 "
-            "! rtph264depay "
-            "! queue max-size-buffers=1 leaky=downstream "
-            "! h264parse "
-            "! queue max-size-buffers=1 leaky=downstream "
-            "! avdec_h264 "
-            "! videoconvert "
-            "! video/x-raw,format=RGB "
-            "! appsink name=sink emit-signals=false max-buffers=1 drop=true sync=false"
-        )
+        pipeline_text = stock_h264_pipeline(address, port, interface)
 
         try:
             pipeline = Gst.parse_launch(pipeline_text)

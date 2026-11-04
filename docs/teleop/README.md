@@ -1,6 +1,6 @@
 # G1 Basic Teleoperation
 
-This runbook covers the first motion-enabled test in `g1-ros`: a bounded,
+This runbook covers the first motion-enabled test in `g1-ros2`: a bounded,
 one-hand-at-a-time Dex3 connectivity smoke test. Whole-body and locomotion
 control are out of scope.
 

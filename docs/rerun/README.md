@@ -79,6 +79,11 @@ ros2 run g1_rerun_bridge bridge --ros-args \
   -p gstreamer_camera_interface:=<robot-lan-interface>
 ```
 
+This is a passive host-side receiver for Unitree's existing stream. It does
+not start the isolated onboard RealSense ROS 2 driver or take ownership of the
+camera device. Native RealSense RGB/depth remains disabled from default
+bring-up; see the [camera safety boundary](../camera/README.md#default-rerun-camera-safety-boundary).
+
 ## Expected Behavior
 
 - URDF geometry should appear immediately after launch.

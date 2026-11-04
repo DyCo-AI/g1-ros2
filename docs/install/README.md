@@ -1,6 +1,6 @@
 # Ubuntu 22.04 Host Installation
 
-This is the clean-host installation procedure for `g1-ros`. Complete it once
+This is the clean-host installation procedure for `g1-ros2`. Complete it once
 on the Ubuntu development PC before following the robot bring-up runbook.
 
 ## Tested Baseline
@@ -97,12 +97,12 @@ rosdep update
 If `rosdep init` reports that its sources list already exists, do not remove
 it; continue with `rosdep update`.
 
-## 4. Clone `g1-ros`
+## 4. Clone `g1-ros2`
 
 ```bash
 cd ~
-git clone https://github.com/DyCo-AI/g1-ros.git
-cd g1-ros
+git clone https://github.com/DyCo-AI/g1-ros2.git
+cd g1-ros2
 ```
 
 Import the pinned Unitree source dependencies:
@@ -141,7 +141,7 @@ Ubuntu Python packages required by ROS, OpenCV, and GStreamer.
 Use a virtual environment that can still see Ubuntu's ROS Python packages:
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 /usr/bin/python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
@@ -160,9 +160,9 @@ Create a dedicated Python 3.10 environment. Do not install ROS itself from
 Conda; ROS 2 Humble remains the Ubuntu installation under `/opt/ros/humble`.
 
 ```bash
-cd ~/g1-ros
-conda create --name g1-ros python=3.10 pip -y
-conda activate g1-ros
+cd ~/g1-ros2
+conda create --name g1-ros2 python=3.10 pip -y
+conda activate g1-ros2
 
 printf '%s\n' '/usr/lib/python3/dist-packages' \
   > "$CONDA_PREFIX/lib/python3.10/site-packages/ubuntu-system.pth"
@@ -206,10 +206,10 @@ Unitree recommends Ubuntu 22.04 with ROS 2 Humble and CycloneDDS for this
 setup. The source revision used by the lab is pinned in `dependencies.repos`.
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 # Activate exactly one:
 source .venv/bin/activate
-# conda activate g1-ros
+# conda activate g1-ros2
 
 source /opt/ros/humble/setup.bash
 
@@ -236,10 +236,10 @@ Both commands must print message fields before continuing.
 ## 7. Build the Lab Diagnostics Packages
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 # Activate exactly one:
 source .venv/bin/activate
-# conda activate g1-ros
+# conda activate g1-ros2
 
 source /opt/ros/humble/setup.bash
 source src/unitree_ros2/cyclonedds_ws/install/setup.bash
@@ -282,7 +282,7 @@ The tested host uses `enp0s31f6`. Configure and verify it with the project
 script:
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 sudo ./scripts/configure_g1_lan.sh \
   enp0s31f6 \
   192.168.123.222/24 \
@@ -302,10 +302,10 @@ configuration and troubleshooting.
 Run this sequence in every terminal used with the robot:
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 # Activate exactly one:
 source .venv/bin/activate
-# conda activate g1-ros
+# conda activate g1-ros2
 
 source /opt/ros/humble/setup.bash
 source src/unitree_ros2/cyclonedds_ws/install/setup.bash
@@ -325,7 +325,7 @@ which python3
 ```
 
 Expected ROS distribution: `humble`. Python should resolve to either
-`~/g1-ros/.venv/bin/python3` or the `g1-ros` Conda environment's Python 3.10.
+`~/g1-ros2/.venv/bin/python3` or the `g1-ros2` Conda environment's Python 3.10.
 
 ## 10. Installation Pass Criteria
 
@@ -355,13 +355,13 @@ Only after these checks pass should the user continue to the
 ## Updating an Existing Checkout
 
 ```bash
-cd ~/g1-ros
+cd ~/g1-ros2
 git pull --ff-only
 vcs import < dependencies.repos
 
 # Activate exactly one:
 source .venv/bin/activate
-# conda activate g1-ros
+# conda activate g1-ros2
 
 source /opt/ros/humble/setup.bash
 source src/unitree_ros2/cyclonedds_ws/install/setup.bash
@@ -381,7 +381,7 @@ Re-source `install/setup.bash` after rebuilding.
 | `unitree_hg/msg/LowState is invalid` | Build and source `src/unitree_ros2/cyclonedds_ws/install/setup.bash`. |
 | Unitree message generation selects Conda Python | Use the documented `/usr/bin/python3 -m colcon` message build command. |
 | Conda cannot import `gi`, `cv2`, or `colcon_core` | Recreate `ubuntu-system.pth` exactly as shown in Option B. |
-| Conda reports native-library or symbol errors | Start a clean terminal, activate only `g1-ros`, then source Humble. Use Option A if the conflict remains. |
+| Conda reports native-library or symbol errors | Start a clean terminal, activate only `g1-ros2`, then source Humble. Use Option A if the conflict remains. |
 | `No module named rerun` | Activate the selected environment and reinstall the requirements file. |
 | Ping works but no ROS topics appear | Check CycloneDDS URI, interface name, RMW implementation, and development mode. |
 | Camera panel is empty | Verify GStreamer plugins and the multicast interface using the camera runbook. |

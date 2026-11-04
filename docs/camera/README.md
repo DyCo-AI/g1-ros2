@@ -27,6 +27,30 @@
   libraries resolve correctly.
 - [x] Complete a bounded depth-only D435i probe at `424x240` and 15 Hz.
 
+## Default Rerun Camera Safety Boundary
+
+The default `g1_rerun_bridge` camera path is the stock Unitree H264 multicast
+stream. Its GStreamer pipeline starts with `udpsrc` on the host PC, so it only
+receives and decodes packets already published by Unitree. It does not:
+
+- SSH into the G1 auxiliary PC.
+- launch `realsense2_camera`.
+- open any `/dev/video*` device.
+- stop, restart, or replace `videohub_pc4` or `master_service`.
+
+The ROS `/frontvideostream` subscriber is also disabled by default; the stock
+multicast receiver is the only default camera input. It can be disabled with:
+
+```bash
+ros2 run g1_rerun_bridge bridge --ros-args \
+  -p enable_gstreamer_camera:=false
+```
+
+The isolated Foxy RealSense probe is not part of normal Rerun bring-up. During
+that probe the front `videohub_pc4` PID changed, so native RGB/depth startup is
+not yet considered non-interfering. Keep it manual and off by default until
+camera ownership, restoration, and cleanup have been validated on hardware.
+
 ## TODO: Native ROS 2 RealSense Access
 
 Do not run `apt --fix-broken install`, remove either time service, stop

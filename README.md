@@ -1,4 +1,4 @@
-# g1-ros
+# g1-ros2
 
 ROS 2 bring-up, diagnostics, bounded teleoperation, and dataset capture tools
 for the DyCo AI Lab's Unitree G1 humanoid.
@@ -17,7 +17,7 @@ for the DyCo AI Lab's Unitree G1 humanoid.
 
 ## Purpose
 
-`g1-ros` provides a repeatable starting point for new lab users and controller
+`g1-ros2` provides a repeatable starting point for new lab users and controller
 developers. Its core workflow is:
 
 1. Connect a development PC to the G1 and verify the robot network.
@@ -64,7 +64,7 @@ another firmware version, or another lab network.
 | Mid360 cloud and IMU | `/utlidar/cloud_livox_mid360`, `/utlidar/imu_livox_mid360` | Live ROS and 3D Rerun view |
 | Dex3 state and tactile arrays | `/lf/dex3/left/state`, `/lf/dex3/right/state` | Live ROS, URDF, tactile diagnostics |
 | Front RGB camera | Unitree H264 multicast | Live GStreamer decode in Rerun |
-| RealSense depth | Onboard D435i | Isolated Foxy driver probe works; integration pending |
+| RealSense depth | Onboard D435i | Isolated Foxy probe only; disabled from default bring-up |
 | Battery, board, alarms, stop state | Unitree low-frequency topics | Topic inventory exists; readiness summary pending |
 
 ## Interfaces
@@ -117,8 +117,8 @@ commands below are the condensed path for an already prepared Ubuntu host.
 ### 1. Clone the Repository and Upstream Dependencies
 
 ```bash
-git clone https://github.com/DyCo-AI/g1-ros.git
-cd g1-ros
+git clone https://github.com/DyCo-AI/g1-ros2.git
+cd g1-ros2
 
 sudo apt update
 sudo apt install python3-vcstool
