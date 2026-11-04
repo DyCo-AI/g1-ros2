@@ -11,8 +11,9 @@ Put subsystem-specific runbooks, calibration notes, and troubleshooting here.
 | `docs/pilots/` | Versioned V1 diagnostics and V2 teleoperation acceptance-test plans. |
 | `docs/install/` | Tested Ubuntu 22.04 host installation, dependencies, build, and verification. |
 | `docs/bringup/` | Canonical whole-robot startup and read-only diagnostics procedure. |
+| `docs/controller/` | Battery startup, controller mode transitions, demo allowlist, and prohibited commands. |
 | `docs/hardware/` | Physical robot configuration, hip clamp state, active DOFs, and controller compatibility. |
-| `docs/network/` | Development mode, LAN setup, static IP, ping checks, DDS/network troubleshooting. |
+| `docs/network/` | LAN setup, static IP, ping checks, Jetson access, and DDS/network troubleshooting. |
 | `docs/dex3/` | Dex3 hand tactile diagnostics, raw taxel layout, calibration, smoke tests, hand command checks. |
 | `docs/lidar/` | Mid360 topics, point cloud checks, Rerun/RViz visualization, frame alignment, camera/LiDAR fusion notes. |
 | `docs/camera/` | GStreamer camera stream, ROS video topics, recording/replay, frame rate and latency checks. |
@@ -36,8 +37,9 @@ For each subsystem, prefer this structure:
 - [Ubuntu 22.04 host installation](install/README.md)
 - [V1 diagnostics and V2 teleoperation pilot roadmap](pilots/README.md)
 - [Whole-robot diagnostics bring-up](bringup/README.md)
+- [Wireless controller startup and safe command allowlist](controller/README.md)
 - [Hardware configuration and hip clamp](hardware/README.md)
-- [Network and development mode](network/README.md)
+- [Robot network setup](network/README.md)
 - [Rerun diagnostics](rerun/README.md)
 - [Dex3 tactile diagnostics](dex3/README.md)
 - [IMU diagnostics](imus/README.md)

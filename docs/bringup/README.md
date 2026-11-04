@@ -30,11 +30,19 @@ g1_rerun_bridge bridge
 ## 1. Prepare the Robot and Enter Development Mode
 
 1. Put the G1 on the gantry and clear the surrounding area.
-2. Power on the robot and wait for startup to complete.
-3. Press `L2 + R2` on the controller.
-4. Press `L2 + A`.
-5. Press `L2 + B`.
-6. Confirm the development-mode LED is green.
+2. Power on the battery by pressing its button once, then pressing again and
+   holding it.
+3. Wait for robot startup to complete.
+4. Press `L2 + R2` to enter Development mode and disable the stock Unitree
+   walking controller.
+5. Confirm the development-mode LED is green.
+6. Optionally press `L2 + A` to put both arms and hands in the forward
+   development pose. Press `L2 + B` to cancel that pose.
+
+Do not use Mode 8/climb, Mode 9/dance, or unknown controller combinations.
+The installed Dex3 hands may not be compatible with stock motions designed for
+the basic hands. See the [wireless controller startup and command
+allowlist](../controller/README.md) before using the controller.
 
 For read-only diagnostics, record whether the hip clamp is installed. Before
 running any motion-enabled test or controller, complete the mandatory

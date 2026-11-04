@@ -1,4 +1,4 @@
-# G1 Network and Development Mode
+# G1 Network Setup
 
 The Unitree G1 uses a direct Ethernet connection for development traffic. The
 PC Ethernet interface must have a unique address on the same subnet as the
@@ -24,12 +24,15 @@ in `192.168.123.0/24`. Never assign the robot's `.161` address to the PC.
 
 ## 1. Put the Robot in Development Mode
 
+Complete the [wireless controller startup](../controller/README.md), using
+**Path B: Development Mode for Host-PC Work**. In short:
+
 1. Support the G1 on the gantry and clear the surrounding area.
-2. Power on the robot and wait for startup to complete.
-3. Press `L2 + R2` on the controller.
-4. Press `L2 + A`.
-5. Press `L2 + B`.
-6. Confirm the robot's development-mode LED is green.
+2. Power on the battery with one press followed by a second press and hold.
+3. Wait for startup, then press `L2 + R2`.
+4. Confirm the robot's development-mode LED is green.
+5. Use `L2 + A` only if the forward arm/hand development pose is needed;
+   `L2 + B` cancels that pose.
 
 The green LED and expected supported robot behavior are the primary checks at
 this stage. ROS service-state checks are available only after networking and

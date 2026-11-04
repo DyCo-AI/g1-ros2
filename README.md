@@ -183,13 +183,16 @@ the [teleoperation documentation](docs/teleop/README.md).
 ### 4. Prepare the Robot and Network
 
 1. Support the G1 on the gantry.
-2. Power it on and wait for startup.
-3. Use `L2 + R2`, then `L2 + A`, then `L2 + B` to enter the current lab
-   development pose.
+2. Power on the battery: press once, then press again and hold. Wait for
+   startup to complete.
+3. Press `L2 + R2` to enter Development mode. This disables the stock Unitree
+   walking controller.
 4. Confirm the development-mode LED is green.
-5. Connect the development PC by Ethernet.
-6. Confirm the PC Ethernet address is `192.168.123.222/24`.
-7. Verify the robot every session:
+5. Optionally use `L2 + A` for the forward arm/hand development pose;
+   `L2 + B` cancels it.
+6. Connect the development PC by Ethernet.
+7. Confirm the PC Ethernet address is `192.168.123.222/24`.
+8. Verify the robot every session:
 
 ```bash
 ping -c 4 192.168.123.161
@@ -197,7 +200,10 @@ ping -c 4 192.168.123.161
 
 Do not continue unless the ping check passes. See the complete
 [network runbook](docs/network/README.md) for first-time configuration and
-Jetson access.
+Jetson access. Before using the wireless controller, read the
+[startup, Ready-mode demo allowlist, and prohibited-command
+warnings](docs/controller/README.md). Do not use Mode 8/climb, Mode 9/dance,
+or unknown stock commands with the installed Dex3 hands.
 
 ### 5. Source DDS and Check Messages
 
@@ -266,7 +272,8 @@ dependencies.repos          Pinned upstream source dependencies
 | [Lab wiki](docs/README.md) | Documentation index and conventions |
 | [Ubuntu 22.04 host installation](docs/install/README.md) | Clean-PC dependencies, build, environment, and pass criteria |
 | [Whole-robot bring-up](docs/bringup/README.md) | Canonical startup and diagnostics procedure |
-| [Network and development mode](docs/network/README.md) | Ethernet, static IP, ping, DDS, and Jetson SSH |
+| [Wireless controller startup](docs/controller/README.md) | Power-on, Damp/Stand/Ready and Development paths, demo allowlist, and prohibited commands |
+| [Robot network](docs/network/README.md) | Ethernet, static IP, ping, DDS, and Jetson SSH |
 | [Hardware configuration](docs/hardware/README.md) | Robot variant, sensors, hip clamp, and active DOFs |
 | [Rerun diagnostics](docs/rerun/README.md) | Whole-robot interface and troubleshooting |
 | [Dex3 diagnostics](docs/dex3/README.md) | Tactile layout, calibration, and focused viewer |
