@@ -1,0 +1,13 @@
+repositories:
+  src/unitree_ros2:
+    type: git
+    url: https://github.com/unitreerobotics/unitree_ros2.git
+    version: 668d1ec5a05d1c38d3306bdca7d59f2ba3581a88
+  third_party/unitree_ros:
+    type: git
+    url: https://github.com/unitreerobotics/unitree_ros.git
+    version: 278b222a3ca04f684c764c53ae82a70c87ff3044
+  third_party/unitree_model:
+    type: git
+    url: https://github.com/unitreerobotics/unitree_model.git
+    version: b6a8942b0803b6c137e58cef12beb4b03e4a2fa7

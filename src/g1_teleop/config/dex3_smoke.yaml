@@ -1,0 +1,15 @@
+# Review these values against the exact robot and firmware before hardware use.
+side: right
+step_degrees: 10.0
+session_envelope_degrees: 30.0
+move_duration_seconds: 6.0
+kp: 1.5
+kd: 0.2
+maximum_tracking_error_rad: 0.15
+maximum_estimated_velocity_rad_s: 0.5
+feedback_timeout_seconds: 0.5
+operator_idle_timeout_seconds: 60.0
+
+# The first implementation keeps the reviewed values compiled into the binary.
+# Loading and validating this file at runtime is a follow-up task; it is included
+# now to make the intended hardware profile explicit and reviewable.
