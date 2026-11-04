@@ -162,6 +162,27 @@ ros2 run g1_teleop dex3_smoke enp0s31f6 \
 See the [teleoperation runbook](docs/teleop/README.md) before using the second
 command.
 
+### Continue Toward Full Teleoperation
+
+This repository intentionally stops at the bounded Dex3 smoke test. After that
+test passes hardware acceptance, use these projects as references for the next
+teleoperation stage:
+
+- [HuCeBot G1Pilot](https://github.com/hucebot/g1pilot): ROS 2 joystick,
+  Dex3, upper-body joint/Cartesian control, RViz, and Unitree locomotion
+  integration.
+- [Unitree xr_teleoperate](https://github.com/unitreerobotics/xr_teleoperate):
+  official XR teleoperation and retargeting support for G1 variants and Dex3.
+- [VectorRobotics G1Pilot](https://github.com/VectorRobotics/G1Pilot): ROS 2
+  upper-body inverse kinematics, collision checking, and motion-planning
+  reference.
+
+These are external controller stacks, not validated extensions of this
+repository. Do not run them on the lab robot by copying their launch commands
+directly. Follow the [external stack acceptance process](docs/teleop/README.md#evaluating-an-external-teleoperation-stack)
+first, and keep each stack in a separate workspace or container so it cannot
+silently replace this repository's pinned dependencies.
+
 ## Quick Start
 
 The tested host configuration is **Ubuntu 22.04 LTS on x86_64 with ROS 2

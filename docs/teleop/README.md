@@ -140,6 +140,39 @@ Run each line as a separate process:
 Do not proceed to controller buttons, dual-hand commands, arms, or torso until
 this sequence passes and its logs have been reviewed.
 
+## Evaluating an External Teleoperation Stack
+
+The bounded Dex3 test is the entry gate, not a full teleoperation system. The
+following projects are useful continuation references:
+
+| Project | Relevant capability | Lab status |
+| --- | --- | --- |
+| [HuCeBot G1Pilot](https://github.com/hucebot/g1pilot) | ROS 2 joystick input, Dex3 commands, upper-body joint and Cartesian control, RViz, and Unitree locomotion integration | Not yet evaluated on the lab G1 |
+| [Unitree xr_teleoperate](https://github.com/unitreerobotics/xr_teleoperate) | Official XR-device retargeting for Unitree humanoids, including G1 and Dex3 configurations | Not yet evaluated on the lab G1 |
+| [VectorRobotics G1Pilot](https://github.com/VectorRobotics/G1Pilot) | ROS 2 upper-body IK, collision checking, and motion-planning components | Not yet evaluated on the lab G1 |
+
+Do not install an external stack into this workspace or run its hardware launch
+file immediately. Create a separate workspace or container and complete this
+review first:
+
+1. Pin the exact external commit and record its license.
+2. Confirm support for the lab's 29-DOF G1, Dex3 hands, firmware, and URDF.
+3. List every command topic, service, SDK channel, and process that can move the
+   robot.
+4. Determine whether Unitree's walking controller remains active and document
+   how command ownership is acquired and returned.
+5. Match the hip-clamp state, active DOFs, joint ordering, limits, gains, and
+   frame conventions to the physical robot.
+6. Verify deadman behavior, command timeout, emergency stop, process failure,
+   network loss, and normal shutdown without hardware first.
+7. Run in simulation when supported, then perform a gantry test with one
+   allowlisted function and an operator at the emergency stop.
+8. Keep the read-only Rerun diagnostics and synchronized recording active
+   during hardware acceptance.
+
+Only after this checklist produces reviewed evidence should an external stack
+be promoted into the lab's basic teleoperation procedure.
+
 ## Remaining Work
 
 - [x] Pin and record the exact official Unitree SDK2 revision used by the lab.
@@ -154,3 +187,6 @@ this sequence passes and its logs have been reviewed.
 - [ ] Add deadman-controlled gamepad input after deterministic tests pass.
 - [ ] Review the separate `arm_sdk` upper-body controller before adding arm or
   torso motion.
+- [ ] Select one external teleoperation stack for a pinned, isolated lab
+  evaluation; start with HuCeBot G1Pilot as the ROS 2 joystick/upper-body
+  candidate.
