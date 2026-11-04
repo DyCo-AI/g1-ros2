@@ -30,6 +30,61 @@ developers. Its core workflow is:
 The diagnostics path is read-only. Motion tests live in a separate package and
 require explicit operator activation.
 
+## Start Here: Before Every Development Session
+
+First-time users must complete the
+[Ubuntu 22.04 host installation](docs/install/README.md) before using this
+checklist. For every robot session, perform these actions in order and stop if
+a check fails:
+
+1. **Secure the robot.** Put the G1 on the gantry, clear its motion area, and
+   keep the wireless controller and emergency-stop access available.
+2. **Power on.** Press the battery button once, then press it again and hold.
+   Wait for startup to complete.
+3. **Enter Development mode.** Press `L2 + R2`. Confirm that the development
+   LED is green. This disables the stock Unitree walking controller.
+4. **Choose the arm pose if needed.** Press `L2 + A` to put both arms and hands
+   forward. Press `L2 + B` to cancel that pose.
+5. **Connect the host PC.** Attach the robot Ethernet cable and confirm that
+   the PC interface has `192.168.123.222/24`.
+6. **Pass the network gate.** Run `ping -c 4 192.168.123.161`. Do not continue
+   unless all four packets return.
+7. **Source the ROS 2 environment.** Use the commands below from the repository
+   root.
+8. **Pass the ROS gate.** Confirm `/lf/lowstate` is present and publishing.
+9. **Run read-only diagnostics.** Start Rerun and verify the URDF, camera,
+   LiDAR, IMU, and Dex3 streams.
+10. **Enable motion only from its runbook.** Complete the
+    [hardware checklist](docs/hardware/README.md#pre-motion-check) and the
+    [specific motion-test procedure](docs/teleop/README.md) before running a
+    command with motion enabled.
+
+```bash
+cd ~/g1-ros2
+
+# Activate exactly one Python environment:
+source .venv/bin/activate
+# conda activate g1-ros2
+
+source /opt/ros/humble/setup.bash
+source src/unitree_ros2/cyclonedds_ws/install/setup.bash
+source install/setup.bash
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export CYCLONEDDS_URI="file://${PWD}/config/cyclonedds_g1.xml"
+
+ping -c 4 192.168.123.161
+ros2 topic info /lf/lowstate
+ros2 topic hz /lf/lowstate
+# After confirming a stable rate, press Ctrl+C.
+ros2 run g1_rerun_bridge bridge
+```
+
+> [!CAUTION]
+> Do not use Mode 8/climb, Mode 9/dance, or unknown wireless-controller
+> commands. Some stock motions target basic hands and have not been validated
+> with this robot's Dex3 hands. See the [controller startup and command
+> allowlist](docs/controller/README.md).
+
 ## Supported Lab Robot
 
 The current profile targets the lab's development-capable G1 configuration:
