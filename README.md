@@ -151,23 +151,28 @@ sudo apt install \
   gstreamer1.0-plugins-good \
   gstreamer1.0-plugins-bad
 
-python3 -m venv --system-site-packages .venv
+/usr/bin/python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 python3 -m pip install -r src/g1_rerun_bridge/requirements.txt
 ```
 
+This condensed example uses `venv`. A Python 3.10 Conda environment is also
+supported; follow [Option B in the installation guide](docs/install/README.md#option-b-conda)
+so ROS, OpenCV, and GStreamer remain visible inside the environment.
+
 ### 3. Build Unitree Messages and Lab Packages
 
 ```bash
-source /opt/ros/humble/setup.bash
 source .venv/bin/activate
+source /opt/ros/humble/setup.bash
 
 cd src/unitree_ros2/cyclonedds_ws
-colcon build --symlink-install
+/usr/bin/python3 -m colcon build --symlink-install \
+  --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
 source install/setup.bash
 cd ../../..
 
-colcon build --symlink-install \
+python3 -m colcon build --symlink-install \
   --packages-select g1_rerun_bridge g1_rerun_dex
 source install/setup.bash
 ```
